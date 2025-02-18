@@ -1,0 +1,187 @@
+{
+	"info": {
+		"_postman_id": "6af9e5e2-801f-4964-97c9-52fe3407d4eb",
+		"name": "Kelompok9_Open_Weather",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38845672"
+	},
+	"item": [
+		{
+			"name": "9_CurrentWeather",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// kasus 1\r",
+							"//pm.test(\"Status code is 200\", function () {\r",
+							"    //pm.response.to.have.status(200);\r",
+							"//});\r",
+							"\r",
+							"// kasus 2 . respons json valid\r",
+							"pm.test(\"Response is JSON\", function () {\r",
+							"   pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// 4. Properti suhu tersedia\r",
+							"//pm.test(\"Temperature property exists\", function () {\r",
+							"    //var jsonData = pm.response.json();\r",
+							"    //pm.expect(jsonData.main).to.have.property('temp');\r",
+							"//});\r",
+							"\r",
+							"// 5. Verifikasi waktu respons (di bawah 500ms)\r",
+							"//pm.test(\"Response time is less than 500ms\", function () {\r",
+							"   // pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"//});\r",
+							"\r",
+							"// 6. Verifikasi parameter nama kota (Tokyo)\r",
+							"//pm.test(\"City name is tokyo\", function () {\r",
+							"   // var jsonData = pm.response.json();\r",
+							"    //pm.expect(jsonData.name).to.eql(\"Toky%%o\");\r",
+							"//});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?q={{NAMAKOTA}}&appid={{API_KEYS}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{NAMAKOTA}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{API_KEYS}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9_Forecast",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 5. Verifikasi waktu respons (di bawah 700ms)\r",
+							"pm.test(\"Response time is less than 50ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(50);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/forecast?q={{NAMAKOTA}}&appid={{API_KEYS}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"forecast"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{NAMAKOTA}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{API_KEYS}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9_WeatherbyCoordinates",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Weather description is available\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    // Verifikasi properti deskripsi cuaca\r",
+							"    pm.expect(jsonData.weather[0]).to.have.property('description');\r",
+							"    pm.expect(jsonData.weather[0].description).to.be.a('string');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?lat={{lat}}&lon={{lon}}&appid={{API_KEYS}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "{{lat}}"
+						},
+						{
+							"key": "lon",
+							"value": "{{lon}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{API_KEYS}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
