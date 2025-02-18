@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "b8a5e932-2562-4cad-9c05-bf09d6f15b1e",
+		"name": "Jakarta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38919347"
+	},
+	"item": [
+		{
+			"name": "Current Weather",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?{{Kota}}{{API Key}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "{{Kota}}{{API Key}}",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weater Forecast",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/forecast?q=jakarta&appid=f7888a368bb4db4113260a81a5b893e1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"forecast"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "jakarta"
+						},
+						{
+							"key": "appid",
+							"value": "f7888a368bb4db4113260a81a5b893e1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather by Coordinates",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1. Pengujian dengan kredensial yang benar\r",
+							"pm.test(\"Login Successful - Valid Credentials\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.response.to.have.jsonBody('token');\r",
+							"});\r",
+							"\r",
+							"// 2. Pengujian dengan email yang salah\r",
+							"pm.test(\"Login Failed - Invalid Email\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"    pm.response.to.be.json;\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse).to.have.property('error');\r",
+							"    pm.expect(jsonResponse.error).to.eql(\"Invalid email or password\");\r",
+							"});\r",
+							"\r",
+							"// 3. Pengujian dengan password yang salah\r",
+							"pm.test(\"Login Failed - Invalid Password\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"    pm.response.to.be.json;\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse).to.have.property('error');\r",
+							"    pm.expect(jsonResponse.error).to.eql(\"Invalid email or password\");\r",
+							"});\r",
+							"\r",
+							"// 4. Validasi Token\r",
+							"pm.test(\"Token is Valid\", function () {\r",
+							"    var jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse).to.have.property('token');\r",
+							"    pm.expect(jsonResponse.token).to.match(/[A-Za-z0-9\\-_]+/); // Valid token regex\r",
+							"});\r",
+							"\r",
+							"// 5. Verifikasi Waktu Respons\r",
+							"pm.test(\"Response Time is within acceptable range\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); // 2 seconds\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?lat={{lat}}&lon={{lot}}&appid={{apikey}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "{{lat}}"
+						},
+						{
+							"key": "lon",
+							"value": "{{lot}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{apikey}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
